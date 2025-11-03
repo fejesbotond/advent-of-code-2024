@@ -8,7 +8,7 @@ import java.util.List;
 import java.util.function.BiFunction;
 import java.util.stream.IntStream;
 
-public class Part1 {
+public class Day1_1 {
 
     static List<int[]> readInput() throws IOException {
         try (var lines = Files.lines(Path.of("puzzleInputs", "day1.txt"))) {

@@ -3,9 +3,9 @@ package day1;
 import java.io.IOException;
 import java.util.stream.Collectors;
 
-public class Part2 {
+public class Day1_2 {
     public static void main(String[] args) throws IOException {
-        var pairs = Part1.readInput();
+        var pairs = Day1_1.readInput();
 
         var left = pairs.stream().map(p -> p[0]).toList();
         var right = pairs.stream().map(p -> p[1]).toList();
