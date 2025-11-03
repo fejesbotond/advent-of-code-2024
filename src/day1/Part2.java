@@ -1,24 +1,22 @@
 package day1;
 
 import java.io.IOException;
+import java.util.stream.Collectors;
 
 public class Part2 {
     public static void main(String[] args) throws IOException {
         var pairs = Part1.readInput();
 
-        var left = pairs.stream().mapToInt(p -> p[0]).toArray();
-        var right = pairs.stream().mapToInt(p -> p[1]).toArray();
+        var left = pairs.stream().map(p -> p[0]).toList();
+        var right = pairs.stream().map(p -> p[1]).toList();
 
-        var similarityScore = 0;
-        for (var x : left) {
-            var count = 0;
-            for (var y : right) {
-                if (x == y) {
-                    count++;
-                }
-            }
-            similarityScore += count * x;
-        }
+        var rightCounts = right.stream()
+                .collect(Collectors.groupingBy(y -> y, Collectors.counting()));
+
+        var similarityScore = left.stream()
+                .mapToLong(x -> x * rightCounts.getOrDefault(x, 0L))
+                .sum();
+
         System.out.println(similarityScore);
     }
 }
