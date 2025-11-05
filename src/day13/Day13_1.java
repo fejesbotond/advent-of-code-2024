@@ -54,9 +54,10 @@ public class Day13_1 {
         return x*3 + y;
 
     }
-   //Check whether there are any cases when the buttons' vectors are parallel.
-   //If there is such case, then if these vectors are also parallel with the prize's vector, there can be more possible solutions to reach the prize with the 2 parallel vectors.
-    //(then extended gcd algorithm)
+   /*
+       Check whether there are any cases when the buttons' vectors are parallel.
+       If there is such case, then if these vectors are also parallel with the prize's vector, there can be more possible solutions to reach the prize with the 2 parallel vectors.
+    */
    
     static void analyzeData(List<long[]> data){
         for(long[] constants : data){
