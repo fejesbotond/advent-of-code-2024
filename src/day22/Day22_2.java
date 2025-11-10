@@ -2,6 +2,7 @@ package day22;
 
 import java.io.IOException;
 import java.util.*;
+import java.util.concurrent.ConcurrentHashMap;
 
 public class Day22_2 {
 
@@ -25,31 +26,33 @@ public class Day22_2 {
         }
     }
 
-    //TODO: parallelize
     private static void solve() throws IOException {
         List<Integer> data = Day22_1.readInput();
-        var table = new HashMap<Integer, Integer>();
-        for(int s : data){
+        var table = new ConcurrentHashMap<Integer, Integer>();
+
+        data.parallelStream().forEach(s -> {
             long curr = s;
             var localTable = new HashSet<Integer>();
             var window = new IntWindow4();
-            for(int i = 0; i < 2000; i++){
+            for (int i = 0; i < 2000; i++) {
                 long next = Day22_1.step(curr);
                 int diff = (int)(next % 10 - curr % 10);
                 curr = next;
                 window.add(diff);
-                if(i >= 3){
+
+                if (i >= 3) {
                     int key = window.encode();
-                    if(localTable.add(key)){
+                    if (localTable.add(key)) {
                         table.merge(key, (int) (next % 10), Integer::sum);
                     }
                 }
             }
-        }
+        });
 
         int max = table.values().stream().mapToInt(i -> i).max().orElseThrow();
         System.out.println(max);
     }
+
     public static void main(String[] args) throws IOException{
         long s = System.nanoTime();
         solve();
