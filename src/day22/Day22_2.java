@@ -13,9 +13,6 @@ public class Day22_2 {
             buffer[head] = e;
             head = (head + 1) & 3;
         }
-        void reset(){
-            head = 0;
-        }
         int encode(){
             int array4 = 0;
             for(int i = 0; i < 4; i++){
@@ -32,11 +29,10 @@ public class Day22_2 {
     private static void solve() throws IOException {
         List<Integer> data = Day22_1.readInput();
         var table = new HashMap<Integer, Integer>();
-        var window = new IntWindow4();
         for(int s : data){
             long curr = s;
             var localTable = new HashSet<Integer>();
-            window.reset();
+            var window = new IntWindow4();
             for(int i = 0; i < 2000; i++){
                 long next = Day22_1.step(curr);
                 int diff = (int)(next % 10 - curr % 10);
@@ -51,10 +47,7 @@ public class Day22_2 {
             }
         }
 
-        int max = 0;
-        for(int v : table.values()){
-            max = Math.max(max, v);
-        }
+        int max = table.values().stream().mapToInt(i -> i).max().orElseThrow();
         System.out.println(max);
     }
     public static void main(String[] args) throws IOException{
